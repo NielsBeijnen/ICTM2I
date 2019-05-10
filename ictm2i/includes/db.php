@@ -1,4 +1,4 @@
 <?php
 $user = "web_user";
-$pass = "xxxxxxx";
-$dbh = new PDO('mysql:host=localhost;dbname=xxxxxxx', $user, $pass);
+$pass = "buOi0Ofhy6ubhsKskhMp";
+$dbh = new PDO('mysql:host=localhost;dbname=website', $user, $pass);
