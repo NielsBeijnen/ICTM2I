@@ -10,3 +10,5 @@ if (filter_has_var(INPUT_POST, 'Verzend')){
     $toevoegen->bindParam(':functie', $functie, PDO::PARAM_STR);
     $toevoegen->execute();
 }
+
+header("Location: /");

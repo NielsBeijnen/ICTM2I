@@ -10,3 +10,5 @@ if (filter_has_var(INPUT_POST, 'wijzigen')){
     $update->bindParam(':id', $id, PDO::PARAM_INT);
     $update->execute();
 }
+
+header("Location: /");

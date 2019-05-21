@@ -1,5 +1,15 @@
 <?php
 require_once 'includes/db.php';
+
+$ophalen = $dbh->prepare("SELECT * FROM mensen");
+$ophalen->execute();
+$content = $ophalen->fetchAll();
+
+$getServerID = $dbh->prepare("SELECT @@server_id");
+$getServerID->execute();
+$serverID = $getServerID->fetch();
+
+$pdo = null;
 ?>
 
 <head>
@@ -8,6 +18,8 @@ require_once 'includes/db.php';
 </head>
 <body>
 
+<p>Server: DB0<?= $serverID ?></p>
+
 <table>
     <tr>
         <th>Naam</th>
@@ -15,31 +27,29 @@ require_once 'includes/db.php';
         <th>Wijzigen</th>
         <th>Verwijderen</th>
     </tr>
-    <tr>
-        <?php
-        $ophalen = $dbh->prepare("SELECT * FROM mensen");
-        $ophalen->execute();
-
-        while ($row = $ophalen->fetch()){
-            echo
-            '<th>'. $row['naam'] .'</th>'.
-            '<th>'. $row['functie'] .'</th>'.
-            '<th><form method="post" action="includes/wijzigen.php">'.
-            '<label for="wijzigen" >Wijzigen</label><select name="wijzigen" id="wijzigen" onchange="this.form.submit()">'.
-            '<option>Teamleider</option>'.
-            '<option>Notulist</option>'.
-            '<option>Kwaliteitbeheer</option>'.
-            '<option>Planner</option>'.
-            '</select>'.
-            '<input type="hidden" name="ID" value="'.$row['id'] .'">'.
-            '</form></th>'.
-            '<th><form method="post" action="includes/verwijder.php">'.
-            '<input type="hidden" name="ID_1" value="'. $row['id'] .'">'.
-            '<input type="submit" name="verwijder" value="Verwijderen">'.
-            '</form></th>';
-        }
-        ?>
-    </tr>
+    <?php foreach($content as $row): ?>
+        <tr>
+            <td> <?= $row['naam'] ?> </td>
+            <td> <?= $row['functie'] ?> </td>
+            <td>
+                <form method="post" action="includes/wijzigen.php">
+                    <select name="wijzigen" id="wijzigen" onchange="this.form.submit()">
+                        <option>Teamleider</option>
+                        <option>Notulist</option>
+                        <option>Kwaliteitbeheer</option>
+                        <option>Planner</option>
+                    </select>
+                    <input type="hidden" name="ID" value="<?= $row['id'] ?>">
+                </form>
+            </td>
+            <td>
+                <form method="post" action="includes/verwijder.php">
+                    <input type="hidden" name="ID_1" value="<?= $row['id'] ?>">
+                    <input type="submit" name="verwijder" value="Verwijderen">
+                </form>
+            </td>
+        </tr>
+    <?php endforeach; ?>
 </table>
 
 <form method="post" action="includes/toevoegen.php">
