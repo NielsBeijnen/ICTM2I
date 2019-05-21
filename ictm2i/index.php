@@ -9,7 +9,7 @@ $getServerID = $dbh->prepare("SELECT @@server_id");
 $getServerID->execute();
 $serverID = $getServerID->fetch();
 
-$pdo = null;
+$dbh = null;
 ?>
 
 <head>
