@@ -8,3 +8,4 @@ if (filter_has_var(INPUT_POST, 'verwijder')){
     $remove->bindParam(':id', $id, PDO::PARAM_INT);
     $remove->execute();
 }
+header("Location: /");
