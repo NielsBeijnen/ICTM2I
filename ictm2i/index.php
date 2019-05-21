@@ -18,7 +18,7 @@ $dbh = null;
 </head>
 <body>
 
-<p>Server: DB0<?= $serverID ?></p>
+<p>Server: DB0<?= $serverID["@@server_id"] ?></p>
 
 <table>
     <tr>
@@ -34,10 +34,10 @@ $dbh = null;
             <td>
                 <form method="post" action="includes/wijzigen.php">
                     <select name="wijzigen" id="wijzigen" onchange="this.form.submit()">
-                        <option>Teamleider</option>
-                        <option>Notulist</option>
-                        <option>Kwaliteitbeheer</option>
-                        <option>Planner</option>
+                        <option <?= $row["functie"] == "Teamleider" ? "selected" : "" ?>>Teamleider</option>
+                        <option <?= $row["functie"] == "Notulist" ? "selected" : "" ?>>Notulist</option>
+                        <option <?= $row["functie"] == "Kwaliteitbeheer" ? "selected" : "" ?>>Kwaliteitbeheer</option>
+                        <option <?= $row["functie"] == "Planner" ? "selected" : "" ?>>Planner</option>
                     </select>
                     <input type="hidden" name="ID" value="<?= $row['id'] ?>">
                 </form>
